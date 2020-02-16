@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.hans.agrigo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- Sample AdMob App ID:  ca-app-pub-3940256899942544~3347511713 -->
+    <meta-data
+        android:name="com.google.android.gms.ads.APPLICATION_ID"
+        android:value="ca-app-pub-3940256899942544~3347511713" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher2"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Mapping.GetLatLong"></activity>
+        <activity android:name=".DaftarZona.InputLahan" />
+        <activity android:name=".MenuScanBarcode.AddDevice" />
+        <activity android:name=".Mapping.LineDistance" />
+        <activity android:name=".TestPolyline.Polyline" />
+        <activity android:name=".EditProfile.EditProfile" />
+        <activity android:name=".MenuTesting.TampilData" />
+        <activity android:name=".Mapping.Mapping" />
+        <activity android:name=".Menu.MenuUtama" />
+        <activity android:name=".MenuLogin.Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".MenuRegister.Registerr" />
+    </application>
+
+</manifest>

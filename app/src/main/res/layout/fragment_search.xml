@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <com.timqi.sectorprogressview.ColorfulRingProgressView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/spv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:bgColor="#e1e1e1"
+            app:fgColorEnd="#ff4800"
+            app:fgColorStart="#ffe400"
+            app:percent="0"
+            app:startAngle="0"
+            app:strokeWidth="21dp" />
+
+        <TextView
+            android:id="@+id/tvPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="0"
+            android:textColor="#000"
+            android:textSize="34sp" />
+
+    </FrameLayout>
+
+<LinearLayout
+    android:layout_below="@+id/frame"
+    android:padding="30dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_below="@+id/frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="NILAI KELEMBAPAN : "
+        android:textColor="@color/colorPrimary"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:text="0"
+        android:id="@+id/valueKelembapan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+</LinearLayout>
+
+    <LinearLayout
+        android:layout_below="@+id/frame"
+        android:padding="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_below="@+id/frame"
+        android:padding="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="158dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/frame"
+            android:text="STATUS : "
+            android:textColor="@color/colorPrimary"
+            android:textSize="22dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LEMBAB "
+            android:textColor="@color/colorPrimary"
+            android:textSize="22dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
