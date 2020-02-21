@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MenuScanBarcode.AddDevice"
+    android:id="@+id/main"
+    android:background="@drawable/header_login"
     tools:ignore="VectorDrawableCompat">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/bgHeader"
         android:layout_width="match_parent"
-        android:layout_height="220dp"
-        android:background="@drawable/header_login"
+        android:layout_height="70dp"
         android:elevation="5dp" />
     <TextView
         android:id="@+id/tvDesc"
@@ -86,7 +87,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv"
                 android:layout_width="match_parent"
@@ -100,12 +100,26 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:paddingBottom="50dp">
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="ID Device"
+                        android:text="Mac Addreas"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                    <EditText
+                        android:id="@+id/mac"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:inputType="text" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Device code"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -137,14 +151,15 @@
             </androidx.cardview.widget.CardView>
 
             <RelativeLayout
+                android:id="@+id/iii"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/cv"
                 android:layout_alignLeft="@+id/cv"
                 android:layout_alignRight="@+id/cv"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="-50dp"
-                android:layout_marginRight="35dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="20dp"
                 android:elevation="10dp">
 
                 <Button
@@ -167,23 +182,49 @@
                     android:textColor="@color/white" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/cv"
-                android:layout_alignRight="@+id/cv"
-                android:layout_marginTop="-20dp"
-                android:layout_marginRight="-20dp"
-                android:elevation="10dp">
 
-<!--                <ImageButton-->
-<!--                    android:id="@+id/adddevice"-->
-<!--                    android:layout_width="50dp"-->
-<!--                    android:layout_height="50dp"-->
-<!--                    android:background="@drawable/bg_ui"-->
-<!--                    android:src="@drawable/ic_add" />-->
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/uhfv"-->
+<!--                android:layout_below="@+id/iii"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_margin="20dp"-->
+<!--                app:cardCornerRadius="10dp"-->
+<!--                app:cardElevation="4dp">-->
 
-            </RelativeLayout>
+<!--            <RelativeLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_below="@+id/iii"-->
+<!--                android:layout_alignLeft="@+id/iii"-->
+<!--                android:layout_alignRight="@+id/iii"-->
+<!--                android:layout_marginLeft="5.0dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:elevation="10dp">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/hhh"-->
+<!--                    android:layout_width="84dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="5dp"-->
+<!--                    android:layout_marginLeft="5dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+<!--                    android:layout_marginEnd="5dp"-->
+<!--                    android:layout_marginRight="5dp"-->
+<!--                    android:layout_marginBottom="5dp"-->
+<!--                    android:text="Device Anda"-->
+<!--                    android:textColor="@color/colorPrimaryDark"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:textStyle="bold" />-->
+
+<!--                <androidx.recyclerview.widget.RecyclerView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_below="@+id/hhh"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:id="@+id/tampilzona"/>-->
+<!--            </RelativeLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

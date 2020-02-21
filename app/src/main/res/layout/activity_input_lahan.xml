@@ -101,24 +101,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="Zona Satu"
+                        android:text="Tambah Zona"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:inputType="text" />
-
+                        android:textStyle="bold"/>
                     <Button
                         android:id="@+id/Btnzonasatu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_ui"
-                        android:text="Submit"
+                        android:text="Tambah"
                         android:textAllCaps="false"
                         android:textColor="@color/white" />
 
@@ -143,71 +135,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="Zona Dua"
+                        android:layout_margin="5dp"
+                        android:text="Zona Anda"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:inputType="text" />
-
-                    <Button
-                        android:id="@+id/BtnZonadua"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_ui"
-                        android:text="Submit"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:layout_below="@+id/CZonadua"
-                android:id="@+id/CZonatiga"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="20dp"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="50dp">
-
-                    <TextView
+                    <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="Zona Tiga"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:inputType="text" />
-
-                    <Button
-                        android:id="@+id/BtnZonatiga"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_ui"
-                        android:text="Submit"
-                        android:textAllCaps="false"
-                        android:textColor="@color/white" />
-
+                        android:id="@+id/tampilzona"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </RelativeLayout>
