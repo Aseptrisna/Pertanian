@@ -89,7 +89,7 @@ public class Login extends AppCompatActivity implements IAuthLogin{
         editor.putString(KEY_MAC, macSensor );
         editor.commit();
 
-        Intent a = new Intent(Login.this,com.example.hans.agrigo.MenuScanBarcode.AddDevice.class);
+        Intent a = new Intent(Login.this,com.example.hans.agrigo.DaftarZona.SiramZona.class);
         startActivity(a);
         finish();
         //Toast.makeText(this,"Hello "+ name+" " + name2, Toast.LENGTH_LONG).show();

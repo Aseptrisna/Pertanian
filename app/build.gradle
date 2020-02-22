@@ -11,6 +11,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     packagingOptions {
+
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
     buildTypes {
@@ -34,6 +35,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'com.jakewharton:butterknife:10.2.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
@@ -71,8 +73,9 @@ dependencies {
     }
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v7:0.4.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v7:0.2.0'
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.11.0'
+//    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-locationlayer:0.11.0'
     implementation 'com.jakewharton.timber:timber:4.7.1'
     //Intent Integrator
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
+    implementation  'com.google.android.gms:play-services-location:11.0.1'
 }

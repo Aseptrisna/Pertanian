@@ -3,6 +3,7 @@ package com.example.hans.agrigo.Config;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -24,22 +25,22 @@ public class RMQ {
     Settings settings = new Settings();
 
     // Setup RMQ Configuration (Ganti dengan setting akun RMQ nya)
-    String user = "sva";
-    String pass = "sVa213";
+    String user = "iot_pertanian";
+    String pass = "iotpertanian";
     //String pass = "sva123";
-    String host = "rmq2.pptik.id";
+    String host = "167.205.7.226:15672";
     //String host = "rmq1.pptik.id";
-    String vhost = "/sva";
+    String vhost = "/iotpertanian";
     String exchanges_name = "amq.topic";
     //String exchanges_name = "amq.fanout";
 
    // String routingKey;
 //      String routingKey = "cc:50:e3:55:d2:98";
-   String routingKey = "60:01:94:70:11:3e";
+   String routingKey = "2c:f4:32:3c:61:dc";
     //String routingKey = "3c:71:bf:2a:d7:9e";
     //String routingKey = "sensor.hidro";
       String queue_name_subscribe = "mqtt-subscription-"+routingKey+"qos0";
-    //String queue_name_publish = "mqtt-subscription-"+routingKey+"qos0";
+    String queue_name_publish = "mqtt-subscription-"+routingKey+"dcqos0";
 //    String queue_name_subscribe = "mqtt-subscription-svaqos0";
 //    String queue_name_publish = "mqtt-subscription-svaqos0";
 
@@ -64,26 +65,26 @@ public class RMQ {
      * Publish data lewat RMQ
      * @param message
      */
-//    public void publish(String message) {
-////        try {
-////            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-////            StrictMode.setThreadPolicy(policy);
-////
-////            Connection connection = factory.newConnection();
-////            Channel channel = connection.createChannel();
-////
-////            String messageOn = message ;
-////            channel.basicPublish("", queue_name_publish,null,messageOn.getBytes());
-////
-////        } catch (IOException e) {
-////            Log.d("Publish Error", e.getMessage());
-////        } catch (TimeoutException e) {
-////            Log.d("Publish Error", e.getMessage());
-////        } catch (Exception e) {
-////            Log.d("Publish Error", e.getMessage());
-////        }
-////
-////    }
+    public void publish(String message) {
+        try {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            Connection connection = factory.newConnection();
+            Channel channel = connection.createChannel();
+
+            String messageOn = message ;
+            channel.basicPublish("", queue_name_publish,null,messageOn.getBytes());
+
+        } catch (IOException e) {
+            Log.d("Publish Error", e.getMessage());
+        } catch (TimeoutException e) {
+            Log.d("Publish Error", e.getMessage());
+        } catch (Exception e) {
+            Log.d("Publish Error", e.getMessage());
+        }
+
+    }
 
     /**
      * Optional, Send Speed for threading speed

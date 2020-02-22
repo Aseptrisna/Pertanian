@@ -51,8 +51,11 @@ public class AddDevice extends AppCompatActivity implements View.OnClickListener
     RelativeLayout main;
     @BindView(R.id.cv)
     CardView formdevice;
+
+
     ProgressDialog loading;
     private IntentIntegrator intentIntegrator;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

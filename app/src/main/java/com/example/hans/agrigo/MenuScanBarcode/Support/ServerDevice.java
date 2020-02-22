@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ServerDevice {
 
 
-    public static final String BASE_URL ="http://192.168.21.198:8080/";
+    public static final String BASE_URL ="http://192.168.1.11:6000/";
     private static ServerDevice mInstance;
     private Retrofit retrofit;
 
