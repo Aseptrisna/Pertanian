@@ -9,7 +9,7 @@ import retrofit2.http.POST;
 public interface ApiService {
 
 
-    //    regis device
+    //    regis user
     @FormUrlEncoded
     @POST("users")
     Call<ResponseBody> RegsiterUser(
@@ -24,11 +24,14 @@ public interface ApiService {
             @Field("longitude") String d_long
     );
 
-//    registeruser
+//   device
     @FormUrlEncoded
-    @POST("insertmac")
+    @POST("devices")
      Call<ResponseBody>Device (
-        @Field("IDDevice") String d_mac,
-        @Field("namaAlat") String d_namadevice
+        @Field("devices_mac_address") String d_mac,
+        @Field("devices_name") String d_namadevice,
+        @Field("devices_code") String d_devicecode
 );
+
+
 }

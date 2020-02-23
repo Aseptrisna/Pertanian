@@ -82,7 +82,10 @@ public class AccountFragment extends Fragment {
         btnSetupMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setupMap();
+//                setupMap();
+                Intent intent=new Intent(getActivity(),com.example.hans.agrigo.configwifi.wifi.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
         btnTampil.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +97,7 @@ public class AccountFragment extends Fragment {
         btnTentang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 tentang();
             }
         });

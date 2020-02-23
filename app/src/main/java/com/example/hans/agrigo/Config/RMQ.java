@@ -23,7 +23,6 @@ public class RMQ {
 
     // Load Global Configuration
     Settings settings = new Settings();
-
     // Setup RMQ Configuration (Ganti dengan setting akun RMQ nya)
     String user = "iot_pertanian";
     String pass = "iotpertanian";
@@ -69,13 +68,11 @@ public class RMQ {
         try {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
-
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
 
             String messageOn = message ;
             channel.basicPublish("", queue_name_publish,null,messageOn.getBytes());
-
         } catch (IOException e) {
             Log.d("Publish Error", e.getMessage());
         } catch (TimeoutException e) {

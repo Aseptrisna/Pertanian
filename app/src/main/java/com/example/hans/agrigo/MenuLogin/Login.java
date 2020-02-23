@@ -73,11 +73,13 @@ public class Login extends AppCompatActivity implements IAuthLogin{
 
     @Override
     public void Signin(){
-        presenter.login(
-                username.getText().toString(),
-                password.getText().toString());
+        Intent intent=new Intent(Login.this,MenuUtama.class);
+        startActivity(intent);
+        finish();
+//        presenter.login(
+//                username.getText().toString(),
+//                password.getText().toString());
 }
-
 
     @Override
     public void onSigninSucces(String email, String name, String name2, String macSensor){
@@ -88,8 +90,7 @@ public class Login extends AppCompatActivity implements IAuthLogin{
         editor.putString(TAG_NAME2, name2 );
         editor.putString(KEY_MAC, macSensor );
         editor.commit();
-
-        Intent a = new Intent(Login.this,com.example.hans.agrigo.DaftarZona.SiramZona.class);
+        Intent a = new Intent(Login.this,MenuUtama.class);
         startActivity(a);
         finish();
         //Toast.makeText(this,"Hello "+ name+" " + name2, Toast.LENGTH_LONG).show();

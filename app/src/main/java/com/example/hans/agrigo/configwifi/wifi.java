@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hans.agrigo.MenuScanBarcode.AddDevice;
 import com.example.hans.agrigo.R;
 
 import java.util.List;
@@ -44,12 +45,10 @@ public class wifi extends ListActivity {
         // listening to single list item on click
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 // selected item
                 String ssid = ((TextView) view).getText().toString();
                 connectToWifi(ssid);
                 Toast.makeText(wifi.this,"Wifi SSID : "+ssid,Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -73,9 +72,7 @@ public class wifi extends ListActivity {
             int counter = 0;
             for (String eachWifi : wifis) {
                 String[] temp = eachWifi.split(",");
-
                 filtered[counter] = temp[0].substring(5).trim();//+"\n" + temp[2].substring(12).trim()+"\n" +temp[3].substring(6).trim();//0->SSID, 2->Key Management 3-> Strength
-
                 counter++;
 
             }
@@ -118,6 +115,9 @@ public class wifi extends ListActivity {
                 String checkPassword = pass.getText().toString();
                 finallyConnect(checkPassword, wifiSSID);
                 dialog.dismiss();
+                Intent intent=new Intent(wifi.this, AddDevice.class);
+                startActivity(intent);
+                finish();
             }
         });
         dialog.show();
