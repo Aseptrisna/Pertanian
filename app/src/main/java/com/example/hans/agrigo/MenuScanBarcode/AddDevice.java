@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,11 +16,7 @@ import androidx.cardview.widget.CardView;
 
 import com.example.hans.agrigo.Menu.MenuUtama;
 import com.example.hans.agrigo.MenuLogin.Login;
-import com.example.hans.agrigo.MenuScanBarcode.Support.DeviceRespon;
-import com.example.hans.agrigo.MenuScanBarcode.Support.KoneksiRmq;
-import com.example.hans.agrigo.MenuScanBarcode.Support.RmqVerifikasi;
-import com.example.hans.agrigo.MenuScanBarcode.Support.ServerDevice;
-import com.example.hans.agrigo.Network.RestService;
+import com.example.hans.agrigo.Network.InitRetrofit;
 import com.example.hans.agrigo.R;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -163,7 +158,7 @@ public class AddDevice extends AppCompatActivity implements View.OnClickListener
         } else if (d_mac.equals("")) {
             showSnackbar();
         } else {
-            retrofit2.Call<ResponseBody> call = ServerDevice.getInstance().getApi().Device(d_mac,d_namadevice,d_devicecode);
+            retrofit2.Call<ResponseBody> call = InitRetrofit.getInstance().getApi().Device(d_mac,d_namadevice,d_devicecode);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

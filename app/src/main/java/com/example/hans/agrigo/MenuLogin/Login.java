@@ -1,11 +1,15 @@
 package com.example.hans.agrigo.MenuLogin;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,33 +17,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.hans.agrigo.Menu.MenuUtama;
 import com.example.hans.agrigo.MenuRegister.Registerr;
 import com.example.hans.agrigo.MenuScanBarcode.AddDevice;
+import com.example.hans.agrigo.Network.InitRetrofit;
 import com.example.hans.agrigo.R;
+import com.example.hans.agrigo.Storage.SharedPrefManager;
+import com.google.android.material.snackbar.Snackbar;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
-public class Login extends AppCompatActivity implements IAuthLogin{
-    PresenterLogin presenter;
-    SharedPreferences sharedPreferences;
-    public static final String session_status = "session_status";
-    public static final String my_shared_preferences = "my_shared_preferences";
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_MESSAGE = "message";
-
-    public final static String TAG_EMAIL = "email";
-    public final static String TAG_NAME = "name";
-    public final static String TAG_NAME2 = "name2";
-    public final static String KEY_MAC = "macSensor";
-
+public class Login extends AppCompatActivity{
+    SharedPrefManager sharedPrefManager;
     @BindView(R.id.username)
     EditText username;
-
     @BindView(R.id.password)
     EditText password;
-
     @BindView(R.id.btnSignin)
     Button btnLogin;
+    @BindView(R.id.relativ)
+    RelativeLayout coordinatorLayout;
+    ProgressDialog loading;
 
     String name, email, name2, macSensor;
     Boolean session = false;
@@ -49,62 +56,100 @@ public class Login extends AppCompatActivity implements IAuthLogin{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        presenter = new PresenterLogin(this);
-        this.InitView();
+        sharedPrefManager = new SharedPrefManager(this);
 
-        sharedPreferences = getSharedPreferences(my_shared_preferences, Context.MODE_PRIVATE);
-        session = sharedPreferences.getBoolean(session_status, false);
-        email = sharedPreferences.getString(TAG_EMAIL, null);
-        name = sharedPreferences.getString(TAG_NAME, null);
-        name2 = sharedPreferences.getString(TAG_NAME2, null);
-        macSensor = sharedPreferences.getString(KEY_MAC, null);
-
-        if (session){
-            Intent a = new Intent(Login.this, MenuUtama.class);
-            startActivity(a);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Check_Inputan();
+            }
+        });
+        if (sharedPrefManager.getSudahLogin()){
+            startActivity(new Intent(Login.this, MenuUtama.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
             finish();
+        }
+
+    }
+
+    private void Check_Inputan() {
+        if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
+            username.setFocusable(false);
+            username.setFocusable(false);
+            showSnackbar();
+        } else {
+            loading = ProgressDialog.show(Login.this,"Loading.....",null,true,true);
+            RequestLogin();
+        }
+
+    }
+
+    private void RequestLogin() {
+        String user = String.valueOf(username.getText());
+        String pas = String.valueOf(password.getText());
+        if (user.equals("")) {
+            showSnackbar();
+        } else if (pas.equals("")) {
+            showSnackbar();
+        } else {
+//            mApiService.userLogin(Username.getText().toString(), Password.getText().toString())
+            retrofit2.Call<ResponseBody> call = InitRetrofit.getInstance().getApi().userLogin(user,pas);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (response.isSuccessful()){
+                        loading.dismiss();
+                        try {
+                            JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                            if (jsonRESULTS.getString("message").equals("true")){
+                                Log.d("response api", jsonRESULTS.toString());
+                                String json=jsonRESULTS.getString("user");
+                                Toast.makeText(Login.this, "BERHASIL LOGIN", Toast.LENGTH_SHORT).show();
+                                JSONObject obj = new JSONObject(json);
+                                Log.v("Response:",json);
+
+
+////                                    System.out.println(post_id);
+//                                }
+
+////                              String id = jsonRESULTS.getJSONObject("user").getString("ID");
+//                                String nama = jsonRESULTS.getJSONObject("user").getString("nama");
+//                                String alamat = jsonRESULTS.getJSONObject("user").getString("Alamat");
+//                                String email = jsonRESULTS.getJSONObject("user").getString("email");
+//                                String telpon = jsonRESULTS.getJSONObject("user").getString("telpon");
+////                                        sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA, id);
+//                                sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA, nama);
+//                                sharedPrefManager.saveSPString(SharedPrefManager.SP_EMAIL, email);
+//                                sharedPrefManager.saveSPString(SharedPrefManager.SP_ALAMAT, alamat);
+//                                sharedPrefManager.saveSPString(SharedPrefManager.SP_TELPON, telpon);
+                                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
+//                                Log.d("alamat", alamat+telpon.toString());
+                                startActivity(new Intent(Login.this, MenuUtama.class)
+                                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                                finish();
+                            } else {
+                                String error_message = jsonRESULTS.getString("error_msg");
+                                Toast.makeText(Login.this, error_message, Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        loading.dismiss();
+                    }
+                }
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Log.v("debug", "onFailure: ERROR > " + t.toString());
+                    loading.dismiss();
+
+                }
+            });
         }
     }
 
-    @Override
-    public void InitView(){
-        btnLogin.setOnClickListener(v->this.Signin());
-    }
-
-    @Override
-    public void Signin(){
-        Intent intent=new Intent(Login.this,MenuUtama.class);
-        startActivity(intent);
-        finish();
-//        presenter.login(
-//                username.getText().toString(),
-//                password.getText().toString());
-}
-
-    @Override
-    public void onSigninSucces(String email, String name, String name2, String macSensor){
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(session_status, true);
-        editor.putString(TAG_EMAIL, email);
-        editor.putString(TAG_NAME, name );
-        editor.putString(TAG_NAME2, name2 );
-        editor.putString(KEY_MAC, macSensor );
-        editor.commit();
-        Intent a = new Intent(Login.this,MenuUtama.class);
-        startActivity(a);
-        finish();
-        //Toast.makeText(this,"Hello "+ name+" " + name2, Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onSigninFailed(){
-        Toast.makeText(this, "Username or password is wrong", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onNetworkFailed(String cause) {
-        Toast.makeText(Login.this, "Sambungan Network Terputus." + cause, Toast.LENGTH_LONG).show();
-    }
 
     @OnClick(R.id.btnRegis)
     void btnRegis(){
@@ -112,4 +157,19 @@ public class Login extends AppCompatActivity implements IAuthLogin{
         startActivity(b);
         finish();
     }
+
+    public void showSnackbar() {
+        Snackbar snackbar = Snackbar.make(coordinatorLayout, "Harus Di isi !!!", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Ulangi", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Silahkan ulangi", Snackbar.LENGTH_SHORT);
+                        snackbar1.show();
+                        username.setFocusableInTouchMode(true);
+                        password.setFocusableInTouchMode(true);
+                    }
+                });
+        snackbar.show();
+    }
+
 }

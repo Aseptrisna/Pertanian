@@ -20,8 +20,10 @@ import com.example.hans.agrigo.DaftarZona.InputLahan;
 import com.example.hans.agrigo.Mapping.GetLatLong;
 import com.example.hans.agrigo.MenuLogin.Login;
 import com.example.hans.agrigo.R;
+import com.example.hans.agrigo.Storage.SharedPrefManager;
 
 public class AccountFragment extends Fragment {
+    SharedPrefManager sharedPrefManager;
     public static String KEY_ACTIVITY = "msg_activity";
     public static String KEY_ACTIVITY1 = "msg_activity1";
     public static String KEY_ACTIVITY2 = "msg_activity2";
@@ -42,7 +44,9 @@ public class AccountFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_account, container, false);
+        sharedPrefManager = new SharedPrefManager(getActivity());
         txtEmail = (TextView) view.findViewById(R.id.txt_email);
         txtUsername = (TextView) view.findViewById(R.id.txt_name);
         btnLogout = (Button) view.findViewById(R.id.btn_logout);
@@ -69,7 +73,9 @@ public class AccountFragment extends Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                logout();
+                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
+                startActivity(new Intent(getActivity(), Login.class));
+                getActivity().finish();
 
             }
         });
@@ -153,17 +159,17 @@ public class AccountFragment extends Fragment {
         getActivity().finish();
     }
 
-    private void logout() {
-        sharedPreferences = getActivity().getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(session_status, false);
-        editor.putString(TAG_EMAIL, null);
-        editor.putString(TAG_NAME, null );
-        editor.putString(TAG_NAME2, null );
-        editor.commit();
-
-        Intent a = new Intent(getActivity(), Login.class);
-        startActivity(a);
-        getActivity().finish();
-    }
+//    private void logout() {
+//        sharedPreferences = getActivity().getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putBoolean(session_status, false);
+//        editor.putString(TAG_EMAIL, null);
+//        editor.putString(TAG_NAME, null );
+//        editor.putString(TAG_NAME2, null );
+//        editor.commit();
+//
+//        Intent a = new Intent(getActivity(), Login.class);
+//        startActivity(a);
+//        getActivity().finish();
+//    }
 }

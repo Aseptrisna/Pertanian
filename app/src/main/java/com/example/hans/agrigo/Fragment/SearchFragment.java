@@ -38,15 +38,15 @@ public class SearchFragment extends Fragment{
                              @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup)inflater.inflate(R.layout.fragment_search, null);
 
-        super.onCreate(savedInstanceState);
-        rmq.setupConnectionFactory();
-        getmsg();
-        spv = root.findViewById(R.id.spv);
-        tvPercent = root.findViewById(R.id.tvPercent);
-        valueKelembapan = root.findViewById(R.id.valueKelembapan);
-        status = root.findViewById( R.id.status );
-        sharedPreferences = this.getActivity().getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);
-        routingKey = sharedPreferences.getString(KEY_MAC, null);
+//        super.onCreate(savedInstanceState);
+//        rmq.setupConnectionFactory();
+//        getmsg();
+//        spv = root.findViewById(R.id.spv);
+//        tvPercent = root.findViewById(R.id.tvPercent);
+//        valueKelembapan = root.findViewById(R.id.valueKelembapan);
+//        status = root.findViewById( R.id.status );
+////        sharedPreferences = this.getActivity().getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);
+//        routingKey = sharedPreferences.getString(KEY_MAC, null);
 
 
         return root;

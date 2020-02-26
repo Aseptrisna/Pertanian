@@ -38,7 +38,7 @@ public class wifi extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         list=getListView();
-        mainWifiObj=(WifiManager)getSystemService(Context.WIFI_SERVICE);
+        mainWifiObj=(WifiManager)getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         wifiReciever = new WifiScanReceiver();
         mainWifiObj.startScan();
 

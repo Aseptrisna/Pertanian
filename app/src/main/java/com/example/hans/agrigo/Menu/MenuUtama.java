@@ -34,14 +34,14 @@ public class MenuUtama extends AppCompatActivity
             BottomNavigationView bottomNavigationView = findViewById(R.id.bn_main);
             bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-            sharedPreferences = getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);
-
-            email = sharedPreferences.getString(TAG_EMAIL, null);
-            name = sharedPreferences.getString(TAG_NAME, null);
-            name2 = sharedPreferences.getString(TAG_NAME2, null);
-            macSensor = sharedPreferences.getString(KEY_MAC, null);
-
-            Toast.makeText(this,"Hello "+ name+" " + name2, Toast.LENGTH_LONG).show();
+//            sharedPreferences = getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);
+//
+//            email = sharedPreferences.getString(TAG_EMAIL, null);
+//            name = sharedPreferences.getString(TAG_NAME, null);
+//            name2 = sharedPreferences.getString(TAG_NAME2, null);
+//            macSensor = sharedPreferences.getString(KEY_MAC, null);
+//
+//            Toast.makeText(this,"Hello "+ name+" " + name2, Toast.LENGTH_LONG).show();
 
 //            Bundle data = new Bundle();
 //            data.putString(AccountFragment.KEY_ACTIVITY, email);

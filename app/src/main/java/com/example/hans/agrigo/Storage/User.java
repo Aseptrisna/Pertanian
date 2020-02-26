@@ -1,4 +1,4 @@
-package com.example.drgigi_appv1.models;
+package com.example.hans.agrigo.Storage;
 
 public class User {
 
@@ -11,8 +11,6 @@ public class User {
         this.alamat=alamat;
         this.spesialis=spesialis;
     }
-
-
     public String getEmail() {
         return email;
     }

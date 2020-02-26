@@ -17,15 +17,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
 import com.example.hans.agrigo.BuildConfig;
-import com.example.hans.agrigo.Menu.MenuUtama;
 import com.example.hans.agrigo.MenuLogin.Login;
-import com.example.hans.agrigo.MenuRegister.Model.RegisterModel;
-import com.example.hans.agrigo.MenuScanBarcode.AddDevice;
-import com.example.hans.agrigo.MenuScanBarcode.Support.ServerDevice;
+import com.example.hans.agrigo.Network.InitRetrofit;
 import com.example.hans.agrigo.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -33,10 +29,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -48,7 +40,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Registerr extends AppCompatActivity{
-    PresenterRegis presenterRegis;
     @BindView(R.id.noKtp)
     EditText noktp;
     @BindView(R.id.nama)
@@ -118,7 +109,7 @@ public class Registerr extends AppCompatActivity{
         String Password = String.valueOf(password.getText());
         String Lat=Latitude;
         String Long=Longitude;
-        retrofit2.Call<ResponseBody> call = ServerDevice.getInstance().getApi().RegsiterUser(guid,Nik,Nama,No_tlp,Almat,Email,Password,Lat,Long);
+        retrofit2.Call<ResponseBody> call = InitRetrofit.getInstance().getApi().RegsiterUser(guid,Nik,Nama,No_tlp,Almat,Email,Password,Lat,Long);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
