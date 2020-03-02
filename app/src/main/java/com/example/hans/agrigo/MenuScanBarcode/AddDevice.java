@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.concurrent.TimeoutException;
 
 import butterknife.BindView;
@@ -60,7 +61,7 @@ public class AddDevice extends AppCompatActivity implements View.OnClickListener
 
     ProgressDialog loading;
     private IntentIntegrator intentIntegrator;
-    String Mac_Addres,DeviceName,Device_Code;
+    String Mac_Addres,DeviceName,Device_Code,RandomCode,Type;
 
     String user = "iot_pertanian";
     String pass = "iotpertanian";
@@ -105,21 +106,32 @@ public class AddDevice extends AppCompatActivity implements View.OnClickListener
                 try {
                     // converting the data json
                     JSONObject object = new JSONObject(result.getContents());
-                    // atur nilai ke textviews
 //                    Mac.setText(object.getString("mac"));
 //                    IDDevice.setText(object.getString("devicecode"));
 //                    Namadevice.setText(object.getString("devicename"));
 //                    formdevice.setVisibility(View.VISIBLE);
 //                    Tambahdevice.setVisibility(View.VISIBLE);
                     Mac_Addres=object.getString("mac");
-                    DeviceName=object.getString("devicename");
-                    Device_Code=object.getString("devicecode");
-//                    loading = ProgressDialog.show(AddDevice.this,"Loading.....",null,true,true);
+//                    Toast.makeText(this, ""+Mac_Addres, Toast.LENGTH_SHORT).show();
+//                    DeviceName=object.getString("devicename");
+                    Device_Code= object.getString("devicetype");
+                    int code = (int) ((new Date().getTime() / 1000L)%Integer.MIN_VALUE);
+                    if(Device_Code.equals("Sensor")||Device_Code.equals("sensor")){
+                        Type="SS"+code;
+                        Toast.makeText(this,"SS"+ Type, Toast.LENGTH_SHORT).show();
+                    }else {
+                        Type="ACT"+code;
+                        Toast.makeText(this,"ACT"+Type, Toast.LENGTH_SHORT).show();
+                        Log.i("ini tipenya",Type);
+                    }
+//                    int code = (int) ((new Date().getTime() / 1000L)%Integer.MIN_VALUE);
+//                    int a = code - 1582883000;
+//                    int i = (int) ((Math.random() * 2) + 1);
+//                    RandomCode=(Type);
+//                    Log.i("",Mac_Addres);
                       RegisterDevice();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    // jika format encoded tidak sesuai maka hasil
-                    // ditampilkan ke toast
                     Toast.makeText(this, result.getContents(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -145,82 +157,60 @@ public class AddDevice extends AppCompatActivity implements View.OnClickListener
         finish();
     }
 
-
     private void RegisterDevice() {
-//      Toast.makeText(this, ""+Mac_Addres+DeviceName, Toast.LENGTH_SHORT).show();
         String d_mac =Mac_Addres;
-//      String.valueOf(IDDevice.getText());
-        String d_namadevice =DeviceName;
-        String d_devicecode =Device_Code;
-//      String.valueOf(Namadevice.getText());
-        if (d_namadevice.equals("")) {
+        String d_code = Type;
+        if (d_code.equals("")) {
             showSnackbar();
         } else if (d_mac.equals("")) {
             showSnackbar();
         } else {
-            retrofit2.Call<ResponseBody> call = InitRetrofit.getInstance().getApi().Device(d_mac,d_namadevice,d_devicecode);
+            retrofit2.Call<ResponseBody> call = InitRetrofit.getInstance().getApi().Aktivasi_Device(d_mac,d_code);
             call.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()){
+//                        loading.dismiss();
                         try {
-                            publishtrue();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
-                        } catch (KeyManagementException e) {
-                            e.printStackTrace();
-                        } catch (TimeoutException e) {
-                            e.printStackTrace();
-                        } catch (URISyntaxException e) {
+                            JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                            if (jsonRESULTS.getString("msg").equals("Berhasil")){
+
+                            } else {
+                                Toast.makeText(AddDevice.this, "Gagal,Ulangi Kembali", Toast.LENGTH_SHORT).show();
+                                String error_message = jsonRESULTS.getString("msg");
+                                Toast.makeText(AddDevice.this, error_message, Toast.LENGTH_SHORT).show();
+                                Log.d("Pesan",error_message);
+                            }
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-
-//                                loading.dismiss();
-//                    try {
-//                        JSONObject jsonRESULTS = new JSONObject(response.body().string());
-//                        if (jsonRESULTS.getString("err").equals("false")) {
-//                            Log.d("responsenya", response.body().toString());
-                            Intent intent = new Intent(AddDevice.this, MenuUtama.class);
-                            startActivity(intent);
-                            finish();
-//                        } else {
-//                            String error_message = jsonRESULTS.getString("msg");
-//                            Toast.makeText(AddDevice.this, error_message, Toast.LENGTH_SHORT).show();
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-
-                }else{
+                    } else {
+                        Toast.makeText(AddDevice.this, "Gagal,Ulangi Kembali", Toast.LENGTH_SHORT).show();
 //                        loading.dismiss();
                     }
                 }
-                @Override
+                        @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
                     Toast.makeText(AddDevice.this, "Gagal,Ulangi Kembali", Toast.LENGTH_SHORT).show();
                     Log.d("responsenya", t.toString());
                     Toast.makeText(AddDevice.this,t.toString(),Toast.LENGTH_LONG).show();
-//                    try {
-//                        publishfalse();
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    } catch (NoSuchAlgorithmException e) {
-//                        e.printStackTrace();
-//                    } catch (KeyManagementException e) {
-//                        e.printStackTrace();
-//                    } catch (TimeoutException e) {
-//                        e.printStackTrace();
-//                    } catch (URISyntaxException e) {
-//                        e.printStackTrace();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
+                    try {
+                        publishfalse();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    } catch (KeyManagementException e) {
+                        e.printStackTrace();
+                    } catch (TimeoutException e) {
+                        e.printStackTrace();
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 //                    loading.dismiss();
                 }
             });
@@ -242,19 +232,17 @@ public class AddDevice extends AppCompatActivity implements View.OnClickListener
                 });
         snackbar.show();
     }
-
-
     public void publishtrue() throws InterruptedException, NoSuchAlgorithmException, KeyManagementException, TimeoutException, URISyntaxException, IOException {
         String pesan="true";
         setupConnectionFactory();
         publish(pesan);
 }
+
     public void publishfalse() throws InterruptedException, NoSuchAlgorithmException, KeyManagementException, TimeoutException, URISyntaxException, IOException {
         String pesan="false";
         setupConnectionFactory();
         publish(pesan);
     }
-
     public void setupConnectionFactory() {
         try {
             factory.setAutomaticRecoveryEnabled(false);

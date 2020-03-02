@@ -1,6 +1,5 @@
 package com.example.hans.agrigo.Fragment;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -46,7 +45,8 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_account, container, false);
-        sharedPrefManager = new SharedPrefManager(getActivity());
+//        SharedPrefManager sharedPrefManager;
+        sharedPrefManager = new SharedPrefManager();
         txtEmail = (TextView) view.findViewById(R.id.txt_email);
         txtUsername = (TextView) view.findViewById(R.id.txt_name);
         btnLogout = (Button) view.findViewById(R.id.btn_logout);
@@ -54,21 +54,22 @@ public class AccountFragment extends Fragment {
         btnSetupMap = (Button) view.findViewById(R.id.btn_map);
         btnTentang = (Button) view.findViewById(R.id.btn_tentang);
         btnTampil = (Button) view.findViewById(R.id.btn_tampil);
+        tampil_datauser();
 
-        try {
-            String email = getArguments().getString(KEY_ACTIVITY);
-            String name = getArguments().getString(KEY_ACTIVITY1);
-            String name2 = getArguments().getString(KEY_ACTIVITY2);
-            if (email != null) {
-                txtEmail.setText(email);
-                txtUsername.setText(name +" "+ name2);
-            } else {
-
-            }
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+//        try {
+//            String email = getArguments().getString(KEY_ACTIVITY);
+//            String name = getArguments().getString(KEY_ACTIVITY1);
+//            String name2 = getArguments().getString(KEY_ACTIVITY2);
+//            if (email != null) {
+//                txtEmail.setText(email);
+//                txtUsername.setText(name +" "+ name2);
+//            } else {
+//
+//            }
+//
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,4 +173,14 @@ public class AccountFragment extends Fragment {
 //        startActivity(a);
 //        getActivity().finish();
 //    }
+
+    private void tampil_datauser() {
+//        Log.d("response user", sharedPrefManager.getSPNama()+sharedPrefManager.getSPAlamat()+sharedPrefManager.getSPEmail()+sharedPrefManager.getSPTelpon().toString());
+//        Toast.makeText(getActivity(), "ini datanya="+sharedPrefManager.getSPNama()+sharedPrefManager.getSPAlamat()+sharedPrefManager.getSPEmail()+sharedPrefManager.getSPTelpon(), Toast.LENGTH_SHORT).show();
+        txtEmail.setText(sharedPrefManager.getSPEmail());
+        txtUsername.setText(sharedPrefManager.getSPNama());
+//        Telpon.setText(sharedPrefManager.getSPTelpon());
+//        Alamat.setText(sharedPrefManager.getSPAlamat());
+
+    }
 }

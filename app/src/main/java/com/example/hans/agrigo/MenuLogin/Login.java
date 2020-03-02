@@ -1,9 +1,7 @@
 package com.example.hans.agrigo.MenuLogin;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.hans.agrigo.Menu.MenuUtama;
 import com.example.hans.agrigo.MenuRegister.Registerr;
-import com.example.hans.agrigo.MenuScanBarcode.AddDevice;
 import com.example.hans.agrigo.Network.InitRetrofit;
 import com.example.hans.agrigo.R;
 import com.example.hans.agrigo.Storage.SharedPrefManager;
@@ -56,7 +53,7 @@ public class Login extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        sharedPrefManager = new SharedPrefManager(this);
+        sharedPrefManager = new SharedPrefManager();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,27 +98,43 @@ public class Login extends AppCompatActivity{
                         loading.dismiss();
                         try {
                             JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                            if (jsonRESULTS.getString("message").equals("true")){
+                            if (jsonRESULTS.getString("sukses").equals("false")){
                                 Log.d("response api", jsonRESULTS.toString());
+                                String pesan=jsonRESULTS.getString("msg");
                                 String json=jsonRESULTS.getString("user");
-                                Toast.makeText(Login.this, "BERHASIL LOGIN", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Login.this, ""+pesan, Toast.LENGTH_SHORT).show();
                                 JSONObject obj = new JSONObject(json);
                                 Log.v("Response:",json);
-
-
-////                                    System.out.println(post_id);
-//                                }
-
-////                              String id = jsonRESULTS.getJSONObject("user").getString("ID");
-//                                String nama = jsonRESULTS.getJSONObject("user").getString("nama");
-//                                String alamat = jsonRESULTS.getJSONObject("user").getString("Alamat");
-//                                String email = jsonRESULTS.getJSONObject("user").getString("email");
-//                                String telpon = jsonRESULTS.getJSONObject("user").getString("telpon");
-////                                        sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA, id);
-//                                sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA, nama);
-//                                sharedPrefManager.saveSPString(SharedPrefManager.SP_EMAIL, email);
-//                                sharedPrefManager.saveSPString(SharedPrefManager.SP_ALAMAT, alamat);
-//                                sharedPrefManager.saveSPString(SharedPrefManager.SP_TELPON, telpon);
+                                JSONObject jsonuser = new JSONObject(json);
+                                String id_user=jsonuser .getString("_id");
+                                String guid=jsonuser .getString("guid");
+                                String no_ktp=jsonuser .getString("no_ktp");
+                                String nama=jsonuser .getString("nama");
+                                String no_hp=jsonuser .getString("no_hp");
+                                String alamat=jsonuser .getString("alamat");
+                                String password=jsonuser .getString("password");
+                                String email=jsonuser .getString("email");
+//                                String latitude=jsonuser .getString("latitude");
+//                                String longitude=jsonuser .getString("longitude");
+                                String devices=jsonuser .getString("devices");
+//                                JSONArray array=new JSONArray(devices);
+                                JSONArray jsonarray = new JSONArray(devices);
+                                for (int i = 0; i < jsonarray.length(); i++) {
+                                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                    String mac = jsonobject.getString("devices_mac_address");
+                                    String name = jsonobject.getString("devices_name");
+                                    Log.d("device", String.valueOf(jsonarray));
+                                    Log.d("isi:",mac+name);
+                                }
+//                                Log.d("device", String.valueOf(array));
+                                Log.v("Response:",id_user+guid+no_ktp+nama+no_hp+alamat+password+devices);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_ID, id_user);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_GUID, guid);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_NIK, no_ktp);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA, nama);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_EMAIL, email);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_ALAMAT, alamat);
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_TELPON, no_hp);
                                 sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
 //                                Log.d("alamat", alamat+telpon.toString());
                                 startActivity(new Intent(Login.this, MenuUtama.class)
@@ -150,8 +163,6 @@ public class Login extends AppCompatActivity{
             });
         }
     }
-
-
     @OnClick(R.id.btnRegis)
     void btnRegis(){
         Intent b = new Intent(Login.this, Registerr.class);

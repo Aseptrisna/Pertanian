@@ -1,10 +1,14 @@
 package com.example.hans.agrigo.Network;
 
+import com.example.hans.agrigo.Storage.SharedPrefManager;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 public class InitRetrofit {
 
-    public static final String BASE_URL = "http://192.168.14.15:3000/";
+
+    public static final String BASE_URL = "http://192.168.14.15:5000/";
+
     private static InitRetrofit mInstance;
     private Retrofit retrofit;
 

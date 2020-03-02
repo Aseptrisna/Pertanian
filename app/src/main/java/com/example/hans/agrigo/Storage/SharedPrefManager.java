@@ -6,6 +6,10 @@ import android.content.SharedPreferences;
 public class SharedPrefManager {
     public static final String SP_LOGIN_APP = "Sp_Iot";
 
+    public static final String SP_ID= "spId";
+    public static final String SP_GUID= "spGuid";
+    public static final String SP_NIK= "spNik";
+
     public static final String SP_NAMA = "spNama";
     public static final String SP_EMAIL = "spEmail";
     public static final String SP_TELPON= "spTelpon";
@@ -15,7 +19,7 @@ public class SharedPrefManager {
     SharedPreferences sp;
     SharedPreferences.Editor spEditor;
 
-    public SharedPrefManager(Context context){
+    public SharedPrefManager(){
         sp = context.getSharedPreferences(SP_LOGIN_APP, Context.MODE_PRIVATE);
         spEditor = sp.edit();
     }
@@ -55,4 +59,14 @@ public class SharedPrefManager {
         return sp.getBoolean(SP_SUDAH_LOGIN, false);
     }
 
+    public String getSpGuid(){
+        return sp.getString(SP_GUID, "");
+    }
+
+    public String getSpId(){
+        return sp.getString(SP_ID, "");
+    }
+    public String getSpNik(){
+        return sp.getString(SP_NIK, "");
+    }
 }

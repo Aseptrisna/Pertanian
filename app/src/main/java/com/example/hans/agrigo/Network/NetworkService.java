@@ -1,7 +1,10 @@
 package com.example.hans.agrigo.Network;
 
 
+import android.renderscript.Sampler;
+
 import com.example.hans.agrigo.MenuLogin.Login_Response;
+import com.example.hans.agrigo.Storage.SharedPrefManager;
 
 import java.util.Map;
 
@@ -12,11 +15,14 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
+
 public interface NetworkService {
+    SharedPrefManager sharedPrefManager = null;
+    String id=sharedPrefManager.getSpId();
 
 
     @FormUrlEncoded
-    @POST("users/login")
+    @POST("user/login")
     Call<ResponseBody> userLogin(
             @Field("email") String email,
             @Field("password") String password
@@ -24,7 +30,7 @@ public interface NetworkService {
 
     //    regis user
     @FormUrlEncoded
-    @POST("users")
+    @POST("user/register")
     Call<ResponseBody> RegsiterUser(
             @Field("guid") String d_guid,
             @Field("no_ktp") String d_ktp,
@@ -46,4 +52,11 @@ public interface NetworkService {
             @Field("devices_code") String d_devicecode
     );
 
+    @FormUrlEncoded
+    @POST("device/aktivasi/")
+    Call<ResponseBody>Aktivasi_Device (
+            @Field("macAddress") String d_mac,
+            @Field("deviceCode") String d_code
+    );
 }
+

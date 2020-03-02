@@ -29,6 +29,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -109,30 +113,31 @@ public class Registerr extends AppCompatActivity{
         String Password = String.valueOf(password.getText());
         String Lat=Latitude;
         String Long=Longitude;
+
         retrofit2.Call<ResponseBody> call = InitRetrofit.getInstance().getApi().RegsiterUser(guid,Nik,Nama,No_tlp,Almat,Email,Password,Lat,Long);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()){
                     loading.dismiss();
-//                    try {
-//                        JSONObject jsonRESULTS = new JSONObject(response.body().string());
-//                        if (jsonRESULTS.getString("err").equals("false")) {
+                    try {
+                        JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                        if (jsonRESULTS.getString("sukses").equals("false")) {
                     Toast.makeText(Registerr.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
                             Log.d("responsenya", response.body().toString());
                             Intent intent = new Intent(Registerr.this, Login.class);
                             startActivity(intent);
                             finish();
-//                        } else {
-//                            String error_message = jsonRESULTS.getString("msg");
-//                            Toast.makeText(Registerr.this, error_message, Toast.LENGTH_SHORT).show();
-//                        }
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//
-//                    }
+                        } else {
+                            String error_message = jsonRESULTS.getString("msg");
+                            Toast.makeText(Registerr.this, error_message, Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+
+                    }
 
                 }else{
                     Toast.makeText(Registerr.this, "Registrasi Gagal", Toast.LENGTH_SHORT).show();
