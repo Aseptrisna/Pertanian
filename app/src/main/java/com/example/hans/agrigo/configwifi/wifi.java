@@ -22,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hans.agrigo.Menu.MenuUtama;
 import com.example.hans.agrigo.MenuScanBarcode.AddDevice;
 import com.example.hans.agrigo.R;
 
@@ -121,5 +122,17 @@ public class wifi extends ListActivity {
             }
         });
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        back();
+    }
+
+    private void back() {
+        Intent menuSebelumnya = new Intent(wifi.this, MenuUtama.class);
+        startActivity(menuSebelumnya);
+        finish();
     }
 }

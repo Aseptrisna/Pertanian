@@ -1,6 +1,11 @@
 package com.example.hans.agrigo.Network;
 
 
+/*
+Create By Asep Trisna Setiawan
+Bandung 2020
+ */
+
 import android.renderscript.Sampler;
 
 import com.example.hans.agrigo.MenuLogin.Login_Response;
@@ -53,7 +58,7 @@ public interface NetworkService {
     );
 
     @FormUrlEncoded
-    @POST("device/aktivasi/")
+    @POST("device/aktivasi/5e5c83919cc0d71414d31bcb")
     Call<ResponseBody>Aktivasi_Device (
             @Field("macAddress") String d_mac,
             @Field("deviceCode") String d_code

@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 public class GlobalVariable {
     SharedPreferences pref;
     String prov,guid,tlp;
-    String routingKey = "2c:f4:32:3c:61:dc";
+    String routingKey = "dc:4f:22:7e:3f:fd";
     String queue_name_publish ="mqtt-subscription-"+routingKey+"qos0";
 //
 //    /**
@@ -84,17 +84,16 @@ public class GlobalVariable {
      * @return
      */
     public String userQueue(){
-        String userQueue="iot_pertanian";
+        String userQueue="shadoofpertanian";
         return userQueue;
     }
-
 
     /**
      * get Value password RMQ
      * @return
      */
     public String passQueue(){
-        String passQueue="iotpertanian";
+        String passQueue="TaniBertani19";
         return passQueue;
     }
 
@@ -103,7 +102,8 @@ public class GlobalVariable {
      * @return
      */
     public String host(){
-        String hostname ="167.205.7.226";
+        String hostname ="shadoofpertanian.pptik.id";
+//                "167.205.7.226";
 //                "rmq2.pptik.id";
         return hostname;
     }
@@ -114,7 +114,7 @@ public class GlobalVariable {
      */
 
     public String vhostRep(){
-        String vhost="/iotpertanian";
+        String vhost="/shadoofpertanian";
         return vhost;
     }
 

@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.example.hans.agrigo.DaftarZona.InputLahan;
+import com.example.hans.agrigo.DaftarZona.SiramZona;
 import com.example.hans.agrigo.Mapping.GetLatLong;
 import com.example.hans.agrigo.MenuLogin.Login;
 import com.example.hans.agrigo.R;
@@ -36,7 +37,7 @@ public class AccountFragment extends Fragment {
     String email, name, name2;
     TextView txtEmail;
     TextView txtUsername;
-    Button btnLogout, btnTentang, btnSetupMap, btnTampil;
+    Button btnLogout, btnTentang, btnAktivasi, btnSiram;
 //    Button btnEdit;
 
 
@@ -46,14 +47,14 @@ public class AccountFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 //        SharedPrefManager sharedPrefManager;
-        sharedPrefManager = new SharedPrefManager();
+        sharedPrefManager = new SharedPrefManager(getActivity());
         txtEmail = (TextView) view.findViewById(R.id.txt_email);
         txtUsername = (TextView) view.findViewById(R.id.txt_name);
         btnLogout = (Button) view.findViewById(R.id.btn_logout);
 //        btnEdit = (Button) view.findViewById(R.id.btn_editProfile);
-        btnSetupMap = (Button) view.findViewById(R.id.btn_map);
+        btnAktivasi = (Button) view.findViewById(R.id.btn_aktivasi);
         btnTentang = (Button) view.findViewById(R.id.btn_tentang);
-        btnTampil = (Button) view.findViewById(R.id.btn_tampil);
+        btnSiram = (Button) view.findViewById(R.id.btn_siram);
         tampil_datauser();
 
 //        try {
@@ -86,79 +87,62 @@ public class AccountFragment extends Fragment {
 //                editProfile();
 //            }
 //        });
-        btnSetupMap.setOnClickListener(new View.OnClickListener() {
+        btnAktivasi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                setupMap();
                 Intent intent=new Intent(getActivity(),com.example.hans.agrigo.configwifi.wifi.class);
                 startActivity(intent);
                 getActivity().finish();
             }
         });
-        btnTampil.setOnClickListener(new View.OnClickListener() {
+
+        btnSiram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tampilData();
+                Intent tampil = new Intent(getActivity(), SiramZona.class);
+                startActivity(tampil);
+                getActivity().finish();
             }
         });
+
         btnTentang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                // set title dialog
+                // set pesan dari dialog
+                alertDialogBuilder
+                        .setMessage("SHADOOF adalah kata dari peradaban mesir kuno yang berarti pertanian pintar. "
+                                +
+                                "Yang hari ini dikenal dengan sebutan SMART AGRICULTURE"+"\n"+"\n"
+                                +"\n"+"\n"
+                                +"Supported by :"+"\n"
+                                +"PPTIK ITB, UBL, ITB, PT.LSKK"+"\n"+"\n"
+                                +"Created by : "+"\n"
+                                +"Handoko Bimawidjaya")
+                        .setIcon(R.mipmap.ic_launcher)
+                        .setCancelable(false)
+                        .setNegativeButton("Oke",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // jika tombol ini diklik, akan menutup dialog
+                                // dan tidak terjadi apa2
+                                dialog.cancel();
+                            }
 
-                tentang();
+                        });
+
+                // membuat alert dialog dari builder
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // menampilkan alert dialog
+                alertDialog.show();
             }
         });
         return view;
 
     }
 
-    private void tentang() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        // set title dialog
-        // set pesan dari dialog
-        alertDialogBuilder
-                .setMessage("SHADOOF adalah kata dari peradaban mesir kuno yang berarti pertanian pintar. "
-                        +
-                        "Yang hari ini dikenal dengan sebutan SMART AGRICULTURE")
-                .setIcon(R.mipmap.ic_launcher)
-                .setCancelable(false)
-                .setNegativeButton("Oke",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // jika tombol ini diklik, akan menutup dialog
-                        // dan tidak terjadi apa2
-                        dialog.cancel();
-                    }
 
-                });
-
-        // membuat alert dialog dari builder
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // menampilkan alert dialog
-        alertDialog.show();
-    }
-
-
-//    public void editProfile()
-//    {
-//        Intent edit = new Intent(getActivity(), EditProfile.class);
-//        startActivity(edit);
-//        getActivity().finish();
-//    }
-
-    public void setupMap()
-    {
-        Intent map = new Intent(getActivity(), InputLahan.class);
-        startActivity(map);
-        getActivity().finish();
-    }
-
-    public void tampilData()
-    {
-        Intent tampil = new Intent(getActivity(), GetLatLong.class);
-        startActivity(tampil);
-        getActivity().finish();
-    }
 
 //    private void logout() {
 //        sharedPreferences = getActivity().getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);

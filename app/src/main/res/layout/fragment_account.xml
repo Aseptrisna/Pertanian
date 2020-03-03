@@ -9,7 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/bgHeader"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="80dp"
         android:background="@drawable/header_register"
         android:theme="@style/ToolbarTheme"
         android:elevation="5dp" />
@@ -108,22 +108,22 @@
 <!--            android:textStyle="bold" />-->
 
         <Button
-            android:id="@+id/btn_map"
+            android:id="@+id/btn_aktivasi"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_ui"
-            android:text="Tambah Device"
+            android:text="Aktivasi Device"
             android:textColor="#fff"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btn_tampil"
+            android:id="@+id/btn_siram"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/bg_ui"
-            android:text="TAMPIL LAHAN"
+            android:text="SIRAM LAHAN"
             android:textColor="#fff"
             android:textStyle="bold" />
 

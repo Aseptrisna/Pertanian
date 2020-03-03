@@ -1,6 +1,7 @@
 package com.example.hans.agrigo.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +27,7 @@ import java.math.RoundingMode;
 
 public class SearchFragment extends Fragment{
     SharedPreferences sharedPreferences;
+    Button menuAktivasi;
     public  static String KEY_MAC = "macSensor" ;
     private ColorfulRingProgressView spv;
     private TextView tvPercent, valueKelembapan, status ;
@@ -48,7 +51,15 @@ public class SearchFragment extends Fragment{
 ////        sharedPreferences = this.getActivity().getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);
 //        routingKey = sharedPreferences.getString(KEY_MAC, null);
 
-
+        menuAktivasi = (Button) root.findViewById(R.id.menuWifi);
+        menuAktivasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent aktivasi = new Intent(getActivity(),com.example.hans.agrigo.configwifi.wifi.class);
+                startActivity(aktivasi);
+                getActivity().finish();
+            }
+        });
         return root;
 //        textSwitcher.setText(row[stringIndex]);
     }

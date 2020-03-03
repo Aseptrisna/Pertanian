@@ -17,9 +17,9 @@
         android:id="@+id/tvDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="20dp"
         android:elevation="5dp"
-        android:text="Daftarkan"
+        android:text="Masukkan Jadwal dan"
         android:textColor="@color/white"
         android:textSize="20sp" />
     <TextView
@@ -30,7 +30,7 @@
         android:transitionName="tvLogin"
         android:layout_alignLeft="@+id/tvDesc"
         android:elevation="5dp"
-        android:text="Lahan Anda.."
+        android:text="Lama Penyiraman Anda.."
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -101,25 +101,98 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:text="Masukan lama penyiraman"
+                        android:text="Atur Jadwal Penyiraman"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp"
+                        android:textSize="17sp"
                         android:textStyle="bold"/>
 
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="50sp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:layout_height="50sp"
-                        android:padding="5dp" />
-
-                    <Button
-                        android:id="@+id/siram"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <EditText
+                            android:id="@+id/tanggalZona"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:textAlignment="center"
+                            android:hint="Tanggal"/>
+                        <EditText
+                            android:id="@+id/jamZona"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:textAlignment="center"
+                            android:hint="Jam"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="Masukan lama penyiraman"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="17sp"
+                        android:textStyle="bold"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <Spinner
+                            android:id="@+id/spinner"
+                            android:layout_width="120dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="60dp"
+                            android:layout_height="50sp"
+                            android:textAlignment="center"
+                            android:padding="5dp" />
+                        <Spinner
+                            android:id="@+id/spinner2"
+                            android:layout_width="120dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_height="50sp"
+                            android:textAlignment="center"
+                            android:padding="5dp" />
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/btnZona1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
                         android:background="@drawable/bg_ui"
-                        android:text="Tambah"
+                        android:text="Zona Satu Hidup"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnZona2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:background="@drawable/bg_ui"
+                        android:text="Zona Dua Hidup"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnZona3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:background="@drawable/bg_ui"
+                        android:text="Zona Tiga Hidup"
                         android:textAllCaps="false"
                         android:textColor="@color/white" />
 

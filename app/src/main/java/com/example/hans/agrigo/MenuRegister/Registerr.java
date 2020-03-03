@@ -34,6 +34,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -104,7 +105,7 @@ public class Registerr extends AppCompatActivity{
         }
     }
     public void Signup() {
-        String guid ="16151403746252";
+        String  guid = UUID.randomUUID().toString();
         String Nik= String.valueOf(noktp.getText());
         String Nama = String.valueOf(name2.getText());
         String No_tlp = String.valueOf(nomor.getText());
@@ -122,7 +123,7 @@ public class Registerr extends AppCompatActivity{
                     loading.dismiss();
                     try {
                         JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                        if (jsonRESULTS.getString("sukses").equals("false")) {
+                        if (jsonRESULTS.getString("msg").equals("Berhasil Registrasi")) {
                     Toast.makeText(Registerr.this, "Registrasi Berhasil", Toast.LENGTH_SHORT).show();
                             Log.d("responsenya", response.body().toString());
                             Intent intent = new Intent(Registerr.this, Login.class);

@@ -1,7 +1,9 @@
 package com.example.hans.agrigo.Network;
 
-import com.example.hans.agrigo.Storage.SharedPrefManager;
-
+/*
+Create By Asep Trisna Setiawan
+Bandung 2020
+ */
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 public class InitRetrofit {

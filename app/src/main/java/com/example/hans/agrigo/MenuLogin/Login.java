@@ -53,7 +53,7 @@ public class Login extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        sharedPrefManager = new SharedPrefManager();
+        sharedPrefManager = new SharedPrefManager(this);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +98,7 @@ public class Login extends AppCompatActivity{
                         loading.dismiss();
                         try {
                             JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                            if (jsonRESULTS.getString("sukses").equals("false")){
+                            if (jsonRESULTS.getString("msg").equals("Berhasil Login")){
                                 Log.d("response api", jsonRESULTS.toString());
                                 String pesan=jsonRESULTS.getString("msg");
                                 String json=jsonRESULTS.getString("user");
@@ -106,6 +106,7 @@ public class Login extends AppCompatActivity{
                                 JSONObject obj = new JSONObject(json);
                                 Log.v("Response:",json);
                                 JSONObject jsonuser = new JSONObject(json);
+//                                String guid=jsonuser .getString("_id");
                                 String id_user=jsonuser .getString("_id");
                                 String guid=jsonuser .getString("guid");
                                 String no_ktp=jsonuser .getString("no_ktp");

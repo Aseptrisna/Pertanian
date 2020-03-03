@@ -1,97 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    tools:context=".MenuScanBarcode.AddDevice"
+    android:id="@+id/main"
+    android:background="@drawable/header_login"
+    tools:ignore="VectorDrawableCompat">
 
-<!--    <FrameLayout-->
-<!--        android:id="@+id/frame"-->
-<!--        android:layout_width="220dp"-->
-<!--        android:layout_height="220dp"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_centerVertical="true">-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/bgHeader"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:elevation="5dp" />
 
-<!--        <com.timqi.sectorprogressview.ColorfulRingProgressView-->
-<!--            xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--            android:id="@+id/spv"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:bgColor="#e1e1e1"-->
-<!--            app:fgColorEnd="#ff4800"-->
-<!--            app:fgColorStart="#ffe400"-->
-<!--            app:percent="0"-->
-<!--            app:startAngle="0"-->
-<!--            app:strokeWidth="21dp" />-->
+    <TextView
+        android:id="@+id/tvLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDesc"
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        android:transitionName="tvLogin"
+        android:layout_alignLeft="@+id/tvDesc"
+        android:elevation="5dp"
+        android:text="Your Device"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/tvPercent"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center"-->
-<!--            android:text="0"-->
-<!--            android:textColor="#000"-->
-<!--            android:textSize="34sp" />-->
+    <ImageView
+        android:id="@+id/circle1"
+        android:layout_width="134dp"
+        android:layout_height="134dp"
+        android:layout_below="@+id/bgHeader"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="-80dp"
+        android:layout_marginRight="-80dp"
+        android:src="@drawable/circletransparant" />
 
-<!--    </FrameLayout>-->
+    <ImageView
+        android:id="@+id/circle2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="-40dp"
+        android:layout_marginBottom="550dp"
+        android:src="@drawable/circletransparant" />
 
-<!--<LinearLayout-->
-<!--    android:layout_below="@+id/frame"-->
-<!--    android:padding="30dp"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:orientation="horizontal">-->
-<!--    <TextView-->
-<!--        android:layout_below="@+id/frame"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="NILAI KELEMBAPAN : "-->
-<!--        android:textColor="@color/colorPrimary"-->
-<!--        android:textSize="22dp"-->
-<!--        android:textStyle="bold" />-->
+    <ImageView
+        android:id="@+id/circle3"
+        android:layout_width="182dp"
+        android:layout_height="182dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="-80dp"
+        android:layout_marginBottom="170dp"
+        android:src="@drawable/circle" />
 
-<!--    <TextView-->
-<!--        android:text="0"-->
-<!--        android:id="@+id/valueKelembapan"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:textColor="@color/colorPrimary"-->
-<!--        android:textSize="22dp"-->
-<!--        android:textStyle="bold" />-->
+    <ImageView
+        android:id="@+id/circle4"
+        android:layout_width="134dp"
+        android:layout_height="134dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="-160dp"
+        android:layout_marginBottom="90dp"
+        android:layout_toLeftOf="@+id/circle3"
+        android:src="@drawable/circletransparant" />
 
-<!--</LinearLayout>-->
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/bgHeader">
 
-<!--    <LinearLayout-->
-<!--        android:layout_below="@+id/frame"-->
-<!--        android:padding="30dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="vertical">-->
-<!--    <LinearLayout-->
-<!--        android:layout_below="@+id/frame"-->
-<!--        android:padding="30dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:orientation="horizontal">-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="4dp">
 
-<!--        <TextView-->
-<!--            android:layout_width="158dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/frame"-->
-<!--            android:text="STATUS : "-->
-<!--            android:textColor="@color/colorPrimary"-->
-<!--            android:textSize="22dp"-->
-<!--            android:textStyle="bold" />-->
+                <LinearLayout
+                    android:layout_width="334dp"
+                    android:layout_height="292dp"
+                    android:layout_margin="20dp"
+                    android:orientation="vertical">
 
-<!--        <TextView-->
-<!--            android:id="@+id/status"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="LEMBAB "-->
-<!--            android:textColor="@color/colorPrimary"-->
-<!--            android:textSize="22dp"-->
-<!--            android:textStyle="bold" />-->
-<!--    </LinearLayout>-->
-<!--    </LinearLayout>-->
+                    <ListView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:id="@+id/iii"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cv"
+                android:layout_alignLeft="@+id/cv"
+                android:layout_alignRight="@+id/cv"
+                android:layout_marginTop="140dp"
+                android:elevation="10dp">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textSize="70dp"
+                    android:text="+"
+                    android:textColor="@color/bg"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/bg_ui"
+                    android:id="@+id/menuWifi"/>
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

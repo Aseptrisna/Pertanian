@@ -1,15 +1,17 @@
 package com.example.hans.agrigo.Storage;
+/*
+Create By Asep Trisna Setiawan
+Bandung 2020
+ */
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPrefManager {
     public static final String SP_LOGIN_APP = "Sp_Iot";
-
     public static final String SP_ID= "spId";
     public static final String SP_GUID= "spGuid";
     public static final String SP_NIK= "spNik";
-
     public static final String SP_NAMA = "spNama";
     public static final String SP_EMAIL = "spEmail";
     public static final String SP_TELPON= "spTelpon";
@@ -19,7 +21,7 @@ public class SharedPrefManager {
     SharedPreferences sp;
     SharedPreferences.Editor spEditor;
 
-    public SharedPrefManager(){
+    public SharedPrefManager(Context context){
         sp = context.getSharedPreferences(SP_LOGIN_APP, Context.MODE_PRIVATE);
         spEditor = sp.edit();
     }

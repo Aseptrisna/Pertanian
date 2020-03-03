@@ -1,10 +1,13 @@
 package com.example.hans.agrigo.DaftarZona.Helper;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import com.example.hans.agrigo.DaftarZona.GlobalVariablee.GlobalVariable;
 import com.rabbitmq.client.AMQP;
@@ -85,6 +88,7 @@ public class RabbitMq {
     public void subscribeNotification(final Handler handler, Thread subscribeThread)
     {
         subscribeThread = new Thread(new Runnable() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void run() {
                 while(true) {
