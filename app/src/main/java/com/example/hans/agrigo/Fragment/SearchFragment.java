@@ -1,106 +1,82 @@
 package com.example.hans.agrigo.Fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hans.agrigo.Config.RMQ;
-import com.example.hans.agrigo.MenuLogin.Login;
+import com.example.hans.agrigo.Config.AdapterDevice;
+import com.example.hans.agrigo.Config.Item_Device;
+import com.example.hans.agrigo.Config.Response_Device;
+import com.example.hans.agrigo.Network.InitRetrofit;
+import com.example.hans.agrigo.Network.NetworkService;
 import com.example.hans.agrigo.R;
-import com.timqi.sectorprogressview.ColorfulRingProgressView;
+import com.example.hans.agrigo.Storage.SharedPrefManager;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SearchFragment extends Fragment{
-    SharedPreferences sharedPreferences;
-    Button menuAktivasi;
-    public  static String KEY_MAC = "macSensor" ;
-    private ColorfulRingProgressView spv;
-    private TextView tvPercent, valueKelembapan, status ;
-    float Maxvalue  = 610 ;
-    RMQ rmq = new RMQ();
-    String routingKey ;
+    private RecyclerView recyclerView;
+    SharedPrefManager sharedPrefManager;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup)inflater.inflate(R.layout.fragment_search, null);
+        sharedPrefManager = new SharedPrefManager(getActivity());
+        recyclerView =(RecyclerView)root.findViewById(R.id.list_menu);
+        recyclerView.setHasFixedSize(true);
+        GridLayoutManager llm=new GridLayoutManager(getActivity(),1);
+        tampildevice();
+        return root;
+    }
 
-//        super.onCreate(savedInstanceState);
-//        rmq.setupConnectionFactory();
-//        getmsg();
-//        spv = root.findViewById(R.id.spv);
-//        tvPercent = root.findViewById(R.id.tvPercent);
-//        valueKelembapan = root.findViewById(R.id.valueKelembapan);
-//        status = root.findViewById( R.id.status );
-////        sharedPreferences = this.getActivity().getSharedPreferences(Login.my_shared_preferences, Context.MODE_PRIVATE);
-//        routingKey = sharedPreferences.getString(KEY_MAC, null);
-
-        menuAktivasi = (Button) root.findViewById(R.id.menuWifi);
-        menuAktivasi.setOnClickListener(new View.OnClickListener() {
+    private void tampildevice() {
+        String d_mail=sharedPrefManager.getSPEmail();
+        NetworkService api = InitRetrofit.getInstance().getApi();
+        Call<Response_Device> menuCall = api.Tampil_Device(d_mail);
+        menuCall.enqueue(new Callback<Response_Device>() {
             @Override
-            public void onClick(View view) {
-                Intent aktivasi = new Intent(getActivity(),com.example.hans.agrigo.configwifi.wifi.class);
-                startActivity(aktivasi);
-                getActivity().finish();
+            public void onResponse(Call<Response_Device> call, Response<Response_Device> response) {
+                if (response.isSuccessful()){
+                    Log.d("response api", response.body().toString());
+                    List<Item_Device>data_menu= response.body().getMenu();
+                    boolean status = response.body().isStatus();
+                    if (status){
+                        AdapterDevice adapter = new AdapterDevice(getActivity(),data_menu);
+                        recyclerView.setAdapter(adapter);
+                    } else {
+                        Toast.makeText(getActivity(), "Tidak Ada data Menu saat ini", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response_Device> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(getActivity(), "Gagal"+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("pesan",t.getMessage());
+
             }
         });
-        return root;
-//        textSwitcher.setText(row[stringIndex]);
-    }
 
-    private void getmsg() {
-        final Handler incomingMessageHandler = new Handler() {
-            @Override
-            public void handleMessage(Message msg) {
-                String title = "Pengumuman";
-                String message = msg.getData().getString("msg");
-                Log.d("RMQMessage", message);
-                //nampilin message dari rabbit ke switcher
 
-                //Konversi nilai kelembapan dari String ke float
-                float kelembapan = Float.parseFloat(message);
-                //Mengubah nilai kelembapan ke bentuk % (persen),(tipe data double)
-                double convertToPercent = round(((kelembapan -180) / Maxvalue) * 100 , 2) ;
-                //menampilkan hasil persentasi
-                tvPercent.setText(String.valueOf(convertToPercent) + "%");
-                //membagi nilai kelembapan  dengan Max Value
-                float k = (kelembapan - 180) / Maxvalue;
-                float b = (kelembapan - 180);
-                //menampilkan hasil persentase ke dalam animasi grafik
-                spv.setPercent(k * 100);
-                //menampilkan hasil murni data kelembapan
-                valueKelembapan.setText(" "+b);
-
-            }
-        };
-
-        Thread subscribeThread = new Thread();
-//        //ini gua coba iseng kak
-        rmq.subscribe(incomingMessageHandler,subscribeThread);
 
     }
 
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
 
-        BigDecimal bd = new BigDecimal(value);
-        bd = bd.setScale(places, RoundingMode.HALF_UP);
-        return bd.doubleValue();
-    }
 }

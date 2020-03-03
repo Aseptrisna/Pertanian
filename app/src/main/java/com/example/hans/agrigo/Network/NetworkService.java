@@ -8,6 +8,7 @@ Bandung 2020
 
 import android.renderscript.Sampler;
 
+import com.example.hans.agrigo.Config.Response_Device;
 import com.example.hans.agrigo.MenuLogin.Login_Response;
 import com.example.hans.agrigo.Storage.SharedPrefManager;
 
@@ -19,6 +20,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 
 public interface NetworkService {
@@ -56,12 +58,18 @@ public interface NetworkService {
             @Field("devices_name") String d_namadevice,
             @Field("devices_code") String d_devicecode
     );
-
+//    aktivasi device
     @FormUrlEncoded
-    @POST("device/aktivasi/5e5c83919cc0d71414d31bcb")
+    @POST("device/aktivasi/"+"id")
     Call<ResponseBody>Aktivasi_Device (
             @Field("macAddress") String d_mac,
             @Field("deviceCode") String d_code
+    );
+
+    @FormUrlEncoded
+    @POST("ambil/userLogin")
+    Call<Response_Device>Tampil_Device(
+            @Field("email") String d_mail
     );
 }
 

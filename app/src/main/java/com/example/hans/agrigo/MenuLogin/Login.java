@@ -106,7 +106,6 @@ public class Login extends AppCompatActivity{
                                 JSONObject obj = new JSONObject(json);
                                 Log.v("Response:",json);
                                 JSONObject jsonuser = new JSONObject(json);
-//                                String guid=jsonuser .getString("_id");
                                 String id_user=jsonuser .getString("_id");
                                 String guid=jsonuser .getString("guid");
                                 String no_ktp=jsonuser .getString("no_ktp");

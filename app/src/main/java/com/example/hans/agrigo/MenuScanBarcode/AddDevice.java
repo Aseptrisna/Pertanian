@@ -18,6 +18,7 @@ import com.example.hans.agrigo.Menu.MenuUtama;
 import com.example.hans.agrigo.MenuLogin.Login;
 import com.example.hans.agrigo.Network.InitRetrofit;
 import com.example.hans.agrigo.R;
+import com.example.hans.agrigo.Storage.SharedPrefManager;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -58,7 +59,7 @@ public class AddDevice extends AppCompatActivity implements View.OnClickListener
     @BindView(R.id.cv)
     CardView formdevice;
 
-
+    SharedPrefManager sharedPrefManager;
     ProgressDialog loading;
     private IntentIntegrator intentIntegrator;
     String Mac_Addres,DeviceName,Device_Code,RandomCode,Type;
@@ -74,6 +75,8 @@ public class AddDevice extends AppCompatActivity implements View.OnClickListener
         setContentView(R.layout.activity_add_device);
         ButterKnife.bind(this);
         ScanBarcode.setOnClickListener(this);
+        sharedPrefManager = new SharedPrefManager(this);
+
 //        Tambahdevice.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -158,6 +161,7 @@ public class AddDevice extends AppCompatActivity implements View.OnClickListener
     }
 
     private void RegisterDevice() {
+       String Id=sharedPrefManager.getSPEmail();
         String d_mac =Mac_Addres;
         String d_code = Type;
         if (d_code.equals("")) {

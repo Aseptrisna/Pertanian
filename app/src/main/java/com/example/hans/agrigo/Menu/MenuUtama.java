@@ -71,7 +71,7 @@ public class MenuUtama extends AppCompatActivity
             Bundle data = new Bundle();
             switch (menuItem.getItemId()){
                 case R.id.search_menu:
-                    data.putString(SearchFragment.KEY_MAC, macSensor);
+//                    data.putString(SearchFragment.KEY_MAC, macSensor);
                     fragment = new SearchFragment();
                     fragment.setArguments(data);
                     break;
